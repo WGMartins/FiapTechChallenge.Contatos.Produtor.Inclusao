@@ -1,26 +1,26 @@
 ﻿using FluentValidation;
 using Moq;
-using TechChallenge.Domain.Interfaces;
 using TechChallenge.Domain.RegionalAggregate;
 using TechChallenge.UseCase.ContatoUseCase.Adicionar;
 using TechChallenge.UseCase.Interfaces;
+using UseCase.Interfaces;
 
 namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
 {
     public class AdicionarContatoUseCaseTest
     {
         private readonly AdicionarContatoDtoBuilder _builder;
-        private readonly Mock<IContatoRepository> _contatoRepository;
+        private readonly Mock<IMessagePublisher> _messagePublisher;
         private readonly IValidator<AdicionarContatoDto> _validator;
         private readonly IAdicionarContatoUseCase _adicionarContatoUseCase;
 
         public AdicionarContatoUseCaseTest()
         {
             _validator = new AdicionarContatoValidator();
-            _contatoRepository = new Mock<IContatoRepository>();
+            _messagePublisher = new Mock<IMessagePublisher>();
             _builder = new AdicionarContatoDtoBuilder();
 
-            _adicionarContatoUseCase = new AdicionarContatoUseCase(_contatoRepository.Object, _validator);
+            _adicionarContatoUseCase = new AdicionarContatoUseCase(_validator, _messagePublisher.Object);
 
         }
 
@@ -28,8 +28,8 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
         public void AdicionarContatoUseCase_Adicionar_Sucesso()
         {
             // Arrange
-            var adicionarContatoDto = _builder.Default().Build();            
-            _contatoRepository.Setup(s => s.Adicionar(It.IsAny<Contato>()));
+            var adicionarContatoDto = _builder.Default().Build();
+            _messagePublisher.Setup(s => s.PublishAsync(It.IsAny<Contato>()));
 
             // Act
             var result = _adicionarContatoUseCase.Adicionar(adicionarContatoDto);
@@ -44,8 +44,8 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
         public void AdicionarContatoUseCase_Adicionar_ErroValidacaoNome(string nome)
         {
             // Arrange
-            var adicionarContatoDto = _builder.Default().WithName(nome).Build();            
-            _contatoRepository.Setup(s => s.Adicionar(It.IsAny<Contato>()));
+            var adicionarContatoDto = _builder.Default().WithName(nome).Build();
+            _messagePublisher.Setup(s => s.PublishAsync(It.IsAny<Contato>()));
 
             // Act
             var result = Assert.Throws<Exception>(() => _adicionarContatoUseCase.Adicionar(adicionarContatoDto));
@@ -60,8 +60,8 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
         public void AdicionarContatoUseCase_Adicionar_ErroValidacaoTelefoneNuloVazio(string telefone)
         {
             // Arrange
-            var adicionarContatoDto = _builder.Default().WithTelefone(telefone).Build();            
-            _contatoRepository.Setup(s => s.Adicionar(It.IsAny<Contato>()));
+            var adicionarContatoDto = _builder.Default().WithTelefone(telefone).Build();
+            _messagePublisher.Setup(s => s.PublishAsync(It.IsAny<Contato>()));
 
             // Act
             var result = Assert.Throws<Exception>(() => _adicionarContatoUseCase.Adicionar(adicionarContatoDto));
@@ -76,7 +76,7 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
         {
             // Arrange
             var adicionarContatoDto = _builder.Default().WithTelefone(telefone).Build();
-            _contatoRepository.Setup(s => s.Adicionar(It.IsAny<Contato>()));
+            _messagePublisher.Setup(s => s.PublishAsync(It.IsAny<Contato>()));
 
             // Act
             var result = Assert.Throws<Exception>(() => _adicionarContatoUseCase.Adicionar(adicionarContatoDto));
@@ -94,7 +94,7 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
         {
             // Arrange
             var adicionarContatoDto = _builder.Default().WithTelefone(telefone).Build();
-            _contatoRepository.Setup(s => s.Adicionar(It.IsAny<Contato>()));
+            _messagePublisher.Setup(s => s.PublishAsync(It.IsAny<Contato>()));
 
             // Act
             var result = Assert.Throws<Exception>(() => _adicionarContatoUseCase.Adicionar(adicionarContatoDto));
@@ -109,8 +109,8 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
         public void AdicionarContatoUseCase_Adicionar_ErroValidacaoEmailNuloVazio(string email)
         {
             // Arrange
-            var adicionarContatoDto = _builder.Default().WithEmail(email).Build();            
-            _contatoRepository.Setup(s => s.Adicionar(It.IsAny<Contato>()));
+            var adicionarContatoDto = _builder.Default().WithEmail(email).Build();
+            _messagePublisher.Setup(s => s.PublishAsync(It.IsAny<Contato>()));
 
             // Act
             var result = Assert.Throws<Exception>(() => _adicionarContatoUseCase.Adicionar(adicionarContatoDto));
@@ -126,7 +126,7 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
         {
             // Arrange
             var adicionarContatoDto = _builder.Default().WithEmail(email).Build();
-            _contatoRepository.Setup(s => s.Adicionar(It.IsAny<Contato>()));
+            _messagePublisher.Setup(s => s.PublishAsync(It.IsAny<Contato>()));
 
             // Act
             var result = Assert.Throws<Exception>(() => _adicionarContatoUseCase.Adicionar(adicionarContatoDto));
@@ -144,7 +144,7 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
             // Arrange
             var adicionarContatoDto = _builder.Default().WithEmail(email).Build();
 
-            _contatoRepository.Setup(s => s.Adicionar(It.IsAny<Contato>()));
+            _messagePublisher.Setup(s => s.PublishAsync(It.IsAny<Contato>()));
 
             // Act
             var result = Assert.Throws<Exception>(() => _adicionarContatoUseCase.Adicionar(adicionarContatoDto));
