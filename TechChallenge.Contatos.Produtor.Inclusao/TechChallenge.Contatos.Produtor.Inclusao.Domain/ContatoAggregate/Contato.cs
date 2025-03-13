@@ -37,7 +37,6 @@ namespace TechChallenge.Domain.RegionalAggregate
             if (String.IsNullOrWhiteSpace(nome))
                 throw new ArgumentException("Nome do Contato inválido");
 
-
             if (String.IsNullOrWhiteSpace(telefone) || !ValidarTelefone(telefone))
                 throw new ArgumentException("Telefone inválido");
 
@@ -45,7 +44,7 @@ namespace TechChallenge.Domain.RegionalAggregate
                 throw new ArgumentException("E-mail inválido");
 
 
-            return new Contato(nome, telefone, email, regionalId);
+            return new Contato(Guid.NewGuid(), nome, telefone, email, regionalId);
         }       
 
         public Contato Alterar(string nome, string telefone, string email, Guid regionalId)

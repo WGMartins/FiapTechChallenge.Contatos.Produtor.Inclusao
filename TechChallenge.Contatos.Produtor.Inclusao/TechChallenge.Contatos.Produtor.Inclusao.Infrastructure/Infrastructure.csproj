@@ -19,10 +19,12 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
+    <PackageReference Include="RabbitMQ.Client" Version="7.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TechChallenge.Contatos.Produtor.Inclusao.Domain\Domain.csproj" />
+    <ProjectReference Include="..\TechChallenge.Contatos.Produtor.Inclusao.UseCase\UseCase.csproj" />
   </ItemGroup>
 
 </Project>

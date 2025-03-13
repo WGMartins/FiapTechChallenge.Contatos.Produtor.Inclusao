@@ -1,16 +1,19 @@
 ﻿using FluentValidation;
 using TechChallenge.Domain.RegionalAggregate;
 using TechChallenge.UseCase.Interfaces;
+using UseCase.Interfaces;
 
 namespace TechChallenge.UseCase.ContatoUseCase.Adicionar
 {
     public class AdicionarContatoUseCase : IAdicionarContatoUseCase
     {
         private readonly IValidator<AdicionarContatoDto> _validator;
+        private readonly IMessagePublisher _messagePublisher;
 
-        public AdicionarContatoUseCase(IValidator<AdicionarContatoDto> validator)
+        public AdicionarContatoUseCase(IValidator<AdicionarContatoDto> validator, IMessagePublisher messagePublisher)
         {
             _validator = validator;
+            _messagePublisher = messagePublisher;
         }
 
         public ContatoAdicionadoDto Adicionar(AdicionarContatoDto adicionarContatoDto)
@@ -29,8 +32,7 @@ namespace TechChallenge.UseCase.ContatoUseCase.Adicionar
 
             var contato = Contato.Criar(adicionarContatoDto.Nome, adicionarContatoDto.Telefone, adicionarContatoDto.Email, adicionarContatoDto.RegionalId);
 
-            // PUBLICAR NA FILA DO RABBIT MQ
-            //_contatoRepository.Adicionar(contato);
+            _messagePublisher.PublishAsync(contato);            
 
             return new ContatoAdicionadoDto
             {
