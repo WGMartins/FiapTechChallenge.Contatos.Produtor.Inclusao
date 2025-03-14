@@ -24,21 +24,23 @@ public class RabbitMqMessagePublisher : IMessagePublisher
             var connection = await _connectionFactory();
 
             using var channel = await connection.CreateChannelAsync();
+            {
+                string jsonMessage = JsonSerializer.Serialize(message);
+                var body = Encoding.UTF8.GetBytes(jsonMessage);
 
-            string jsonMessage = JsonSerializer.Serialize(message);
-            var body = Encoding.UTF8.GetBytes(jsonMessage);
+                var props = new BasicProperties()
+                {
+                    ContentType = "application/json",
+                    DeliveryMode = DeliveryModes.Persistent,
+                };
 
-            var props = new BasicProperties(){
-                ContentType = "application/json",
-                DeliveryMode = DeliveryModes.Persistent,
-            };            
-
-            await channel.BasicPublishAsync(
-                exchange: _settings.Value.Exchange,
-                routingKey: _settings.Value.RoutingKey,
-                mandatory: false,
-                basicProperties: props,
-                body: (body));
+                await channel.BasicPublishAsync(
+                    exchange: _settings.Value.Exchange,
+                    routingKey: _settings.Value.RoutingKey,
+                    mandatory: false,
+                    basicProperties: props,
+                    body: (body));
+            }
         }
         catch (Exception ex)
         {
