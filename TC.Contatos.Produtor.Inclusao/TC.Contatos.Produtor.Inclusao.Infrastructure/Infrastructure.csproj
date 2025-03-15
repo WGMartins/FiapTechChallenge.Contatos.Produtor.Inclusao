@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TechChallenge.Contatos.Produtor.Inclusao.Domain\Domain.csproj" />
-    <ProjectReference Include="..\TechChallenge.Contatos.Produtor.Inclusao.UseCase\UseCase.csproj" />
+    <ProjectReference Include="..\TC.Contatos.Produtor.Inclusao.Domain\Domain.csproj" />
+    <ProjectReference Include="..\TC.Contatos.Produtor.Inclusao.UseCase\UseCase.csproj" />
   </ItemGroup>
 
 </Project>

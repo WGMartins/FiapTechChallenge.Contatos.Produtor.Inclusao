@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TechChallenge.Contatos.Produtor.Inclusao.UseCase\UseCase.csproj" />
-    <ProjectReference Include="..\TechChallenge.Contatos.Produtor.Inclusao.Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\TechChallenge.Contatos.Produtor.Inclusao.Domain\Domain.csproj" />
+    <ProjectReference Include="..\TC.Contatos.Produtor.Inclusao.UseCase\UseCase.csproj" />
+    <ProjectReference Include="..\TC.Contatos.Produtor.Inclusao.Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\TC.Contatos.Produtor.Inclusao.Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>
