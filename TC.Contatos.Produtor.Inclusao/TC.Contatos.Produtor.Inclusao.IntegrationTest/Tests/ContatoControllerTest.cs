@@ -1,18 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using IntegrationTest.Factories;
+using IntegrationTest.Fixtures;
+using Microsoft.Extensions.DependencyInjection;
 using System.Net.Http.Json;
-using TechChallenge.Infrastructure.Repositories;
-using TechChallenge.IntegrationTest.Factories;
-using TechChallenge.IntegrationTest.Fixtures;
-using TechChallenge.IntegrationTest.Seeders;
-using TechChallenge.UseCase.ContatoUseCase.Adicionar;
-using TechChallenge.UseCase.ContatoUseCase.Alterar;
-using TechChallenge.UseCase.ContatoUseCase.Obter;
-using TechChallenge.UseCase.RegionalUseCase.Adicionar;
-using TechChallenge.UseCase.RegionalUseCase.Alterar;
-using TechChallenge.UseCase.RegionalUseCase.Obter;
-using TechChallenge.UseCase.Shared;
+using UseCase.ContatoUseCase.Adicionar;
 
-namespace TechChallenge.IntegrationTest.Tests
+namespace IntegrationTest.Tests
 {
     public class ContatoControllerTest : IClassFixture<DatabaseFixture>
     {
@@ -58,7 +50,7 @@ namespace TechChallenge.IntegrationTest.Tests
             Assert.NotNull(responseData);
             Assert.Equal("Contato Teste 1", responseData.Nome);
             Assert.Equal("email.contato@gmail.com", responseData.Email);
-            Assert.Equal("98877-6655", responseData.Telefone);            
+            Assert.Equal("98877-6655", responseData.Telefone);
         }
 
         [Fact]
@@ -68,7 +60,7 @@ namespace TechChallenge.IntegrationTest.Tests
             var contato = new AdicionarContatoDto { Nome = "Contato 1", Email = "email@teste.com.br", Telefone = "99955-6633", RegionalId = Guid.Parse("a4ae0efb-a238-4a15-b3ef-434cf78fa265") };
 
             //Act            
-            var response = await _client.PostAsJsonAsync($"/contato", contato);            
+            var response = await _client.PostAsJsonAsync($"/contato", contato);
 
             //Assert
             response.EnsureSuccessStatusCode();
@@ -81,12 +73,13 @@ namespace TechChallenge.IntegrationTest.Tests
         public async Task ContatoController_AlterarContato_Sucesso()
         {
             //Arrange            
-            var contatoAlterado = new AlterarContatoDto 
-            {   Id = Guid.Parse("6cd33da5-7984-46ff-8924-f05b1aadaaa6"), 
-                Nome = "Teste alterado", 
-                Email = "emailalterado@gmail.com", 
-                Telefone = "99911-2233", 
-                RegionalId = Guid.Parse("a4ae0efb-a238-4a15-b3ef-434cf78fa265") 
+            var contatoAlterado = new AlterarContatoDto
+            {
+                Id = Guid.Parse("6cd33da5-7984-46ff-8924-f05b1aadaaa6"),
+                Nome = "Teste alterado",
+                Email = "emailalterado@gmail.com",
+                Telefone = "99911-2233",
+                RegionalId = Guid.Parse("a4ae0efb-a238-4a15-b3ef-434cf78fa265")
             };
 
             //Act            

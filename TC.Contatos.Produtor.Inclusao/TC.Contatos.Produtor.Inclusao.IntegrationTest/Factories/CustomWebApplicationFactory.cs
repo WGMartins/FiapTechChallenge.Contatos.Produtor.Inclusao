@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Domain.ContatoAggregate;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Drawing;
-using System.Reflection.Metadata;
-using TechChallenge.Domain.RegionalAggregate;
-using TechChallenge.Infrastructure.Repositories;
-using TechChallenge.IntegrationTest.Seeders;
 
-namespace TechChallenge.IntegrationTest.Factories
+namespace IntegrationTest.Factories
 {
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {

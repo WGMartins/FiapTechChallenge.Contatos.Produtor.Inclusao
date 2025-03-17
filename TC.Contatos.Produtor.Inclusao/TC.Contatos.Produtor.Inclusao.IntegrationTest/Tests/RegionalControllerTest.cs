@@ -1,22 +1,17 @@
-﻿using System.Net.Http.Json;
-using TechChallenge.IntegrationTest.Factories;
-using TechChallenge.IntegrationTest.Fixtures;
-using TechChallenge.UseCase.RegionalUseCase.Adicionar;
-using TechChallenge.UseCase.RegionalUseCase.Alterar;
-using TechChallenge.UseCase.RegionalUseCase.Listar;
-using TechChallenge.UseCase.RegionalUseCase.Obter;
-using TechChallenge.UseCase.Shared;
+﻿using IntegrationTest.Factories;
+using IntegrationTest.Fixtures;
+using System.Net.Http.Json;
 
-namespace TechChallenge.IntegrationTest.Tests
+namespace IntegrationTest.Tests
 {
     public class RegionalControllerTest : IClassFixture<DatabaseFixture>
     {
         private readonly HttpClient _client;
 
         public RegionalControllerTest(DatabaseFixture databaseFixture)
-        {            
+        {
             var factory = new CustomWebApplicationFactory(databaseFixture.Container.GetConnectionString());
-            _client = factory.CreateClient();            
+            _client = factory.CreateClient();
         }
 
         [Fact]
@@ -88,7 +83,7 @@ namespace TechChallenge.IntegrationTest.Tests
         public async Task RegionalController_AdicionarRegional_Sucesso()
         {
             //Arrange
-            var regional = new AdicionarRegionalDto { Ddd = 39, Estado = "MG", Nome = "Regional Teste 39"};
+            var regional = new AdicionarRegionalDto { Ddd = 39, Estado = "MG", Nome = "Regional Teste 39" };
 
             //Act            
             var response = await _client.PostAsJsonAsync($"/regional", regional);
@@ -113,7 +108,7 @@ namespace TechChallenge.IntegrationTest.Tests
             var response = await _client.PutAsJsonAsync($"/regional", regionalAlterada);
 
             //Assert
-            response.EnsureSuccessStatusCode() ;
+            response.EnsureSuccessStatusCode();
 
             var responseGetById = await _client.GetAsync($"/regional/{regional.Id}");
 
@@ -138,7 +133,7 @@ namespace TechChallenge.IntegrationTest.Tests
 
             //Assert
             response.EnsureSuccessStatusCode();
-            var responseGetById = await _client.GetAsync($"/regional/{regional.Id}");            
+            var responseGetById = await _client.GetAsync($"/regional/{regional.Id}");
             var mensagemErro = await responseGetById.Content.ReadAsStringAsync();
             Assert.Equal(System.Net.HttpStatusCode.BadRequest, responseGetById.StatusCode);
             Assert.Equal("Regional não encontrada", mensagemErro);

@@ -1,11 +1,10 @@
-﻿using FluentValidation;
+﻿using Domain.ContatoAggregate;
+using FluentValidation;
 using Moq;
-using TechChallenge.Domain.RegionalAggregate;
-using TechChallenge.UseCase.ContatoUseCase.Adicionar;
-using TechChallenge.UseCase.Interfaces;
+using UseCase.ContatoUseCase.Adicionar;
 using UseCase.Interfaces;
 
-namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
+namespace UnitTest.UseCase.ContatoUseCase.Adicionar
 {
     public class AdicionarContatoUseCaseTest
     {
@@ -54,7 +53,7 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
             Assert.Contains("Nome não pode ser nulo ou vazio", result.Message);
         }
 
-        [Theory]        
+        [Theory]
         [InlineData("")]
         [InlineData("     ")]
         public void AdicionarContatoUseCase_Adicionar_ErroValidacaoTelefoneNuloVazio(string telefone)
@@ -71,7 +70,7 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
         }
 
         [Theory]
-        [InlineData("12345754-556789")]        
+        [InlineData("12345754-556789")]
         public void AdicionarContatoUseCase_Adicionar_ErroValidacaoTelefoneTamanho(string telefone)
         {
             // Arrange
@@ -89,7 +88,7 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
         [InlineData("12345-6789")]
         [InlineData("08645-6441")]
         [InlineData("34887037")]
-        [InlineData("999999999")]        
+        [InlineData("999999999")]
         public void AdicionarContatoUseCase_Adicionar_ErroValidacaoTelefoneFormato(string telefone)
         {
             // Arrange
@@ -103,9 +102,9 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
             Assert.Contains("Telefone inválido", result.Message);
         }
 
-        [Theory]        
+        [Theory]
         [InlineData("")]
-        [InlineData("     ")]        
+        [InlineData("     ")]
         public void AdicionarContatoUseCase_Adicionar_ErroValidacaoEmailNuloVazio(string email)
         {
             // Arrange
@@ -119,7 +118,7 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
             Assert.Contains("Email não pode ser nulo ou vazio", result.Message);
         }
 
-        [Theory]        
+        [Theory]
         [InlineData("testetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetestetesteteste" +
             "@testetestetestetestetestetestetestetestetestetestetesteteste")]
         public void AdicionarContatoUseCase_Adicionar_ErroValidacaoEmailTamanho(string email)
@@ -138,7 +137,7 @@ namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
         [Theory]
         [InlineData("testedeemail")]
         [InlineData("email@@gmail.com")]
-        [InlineData("teste@live")]        
+        [InlineData("teste@live")]
         public void AdicionarContatoUseCase_Adicionar_ErroValidacaoEmailFormato(string email)
         {
             // Arrange

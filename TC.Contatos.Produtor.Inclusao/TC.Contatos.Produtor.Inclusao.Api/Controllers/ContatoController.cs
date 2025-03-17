@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TechChallenge.UseCase.ContatoUseCase.Adicionar;
-using TechChallenge.UseCase.Interfaces;
+using UseCase.ContatoUseCase.Adicionar;
+using UseCase.Interfaces;
 
-namespace TechChallenge.Api.Controllers
+namespace Api.Controllers
 {
     [Route("[controller]")]
     [ApiController]

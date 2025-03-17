@@ -1,4 +1,4 @@
-﻿namespace TechChallenge.Domain.RegionalAggregate
+﻿namespace Domain.ContatoAggregate
 {
     public class Regional : EntityBase
     {
@@ -28,10 +28,10 @@
             if (ddd <= 0 || ddd > 99)
                 throw new ArgumentException("DDD inválido");
 
-            if (String.IsNullOrWhiteSpace(estado) || estado.Length > 2)
+            if (string.IsNullOrWhiteSpace(estado) || estado.Length > 2)
                 throw new ArgumentException("Estado inválido");
 
-            if (String.IsNullOrWhiteSpace(nome))
+            if (string.IsNullOrWhiteSpace(nome))
                 throw new ArgumentException("Nome da Regional inválido");
 
             return new Regional(ddd, estado, nome);

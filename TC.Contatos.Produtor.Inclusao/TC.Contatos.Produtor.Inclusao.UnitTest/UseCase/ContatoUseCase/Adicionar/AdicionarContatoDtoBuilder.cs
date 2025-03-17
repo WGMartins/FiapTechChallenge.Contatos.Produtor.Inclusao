@@ -1,7 +1,7 @@
 ﻿using Bogus;
-using TechChallenge.UseCase.ContatoUseCase.Adicionar;
+using UseCase.ContatoUseCase.Adicionar;
 
-namespace TechChallenge.UnitTest.UseCase.ContatoUseCase.Adicionar
+namespace UnitTest.UseCase.ContatoUseCase.Adicionar
 {
     public class AdicionarContatoDtoBuilder
     {

@@ -1,9 +1,8 @@
-﻿using FluentValidation;
-using TechChallenge.Domain.RegionalAggregate;
-using TechChallenge.UseCase.Interfaces;
+﻿using Domain.ContatoAggregate;
+using FluentValidation;
 using UseCase.Interfaces;
 
-namespace TechChallenge.UseCase.ContatoUseCase.Adicionar
+namespace UseCase.ContatoUseCase.Adicionar
 {
     public class AdicionarContatoUseCase : IAdicionarContatoUseCase
     {
@@ -32,7 +31,7 @@ namespace TechChallenge.UseCase.ContatoUseCase.Adicionar
 
             var contato = Contato.Criar(adicionarContatoDto.Nome, adicionarContatoDto.Telefone, adicionarContatoDto.Email, adicionarContatoDto.RegionalId);
 
-            _messagePublisher.PublishAsync(contato);            
+            _messagePublisher.PublishAsync(contato);
 
             return new ContatoAdicionadoDto
             {

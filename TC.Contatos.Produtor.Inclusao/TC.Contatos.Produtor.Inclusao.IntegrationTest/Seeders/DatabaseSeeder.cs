@@ -1,7 +1,6 @@
-﻿using TechChallenge.Domain.RegionalAggregate;
-using TechChallenge.Infrastructure.Repositories;
+﻿using Domain.ContatoAggregate;
 
-namespace TechChallenge.IntegrationTest.Seeders
+namespace IntegrationTest.Seeders
 {
     public static class DatabaseSeeder
     {
@@ -14,11 +13,11 @@ namespace TechChallenge.IntegrationTest.Seeders
             {
                 new() { Id = Guid.Parse("8f0fdc40-9485-4f1f-82df-ba974bcf2b0b"), Nome = "Contato Teste 1", Email = "email.contato@gmail.com", Telefone = "98877-6655", RegionalId = regionalId }
             };
-          
+
             context.Regional.Add(regional);
             context.Contato.AddRange(contatos);
             await context.SaveChangesAsync();
         }
-        
+
     }
 }

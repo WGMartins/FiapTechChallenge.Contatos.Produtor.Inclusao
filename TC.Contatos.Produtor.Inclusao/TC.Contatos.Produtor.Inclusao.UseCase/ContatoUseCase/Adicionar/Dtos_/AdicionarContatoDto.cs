@@ -1,4 +1,4 @@
-﻿namespace TechChallenge.UseCase.ContatoUseCase.Adicionar
+﻿namespace UseCase.ContatoUseCase.Adicionar
 {
     public class AdicionarContatoDto
     {

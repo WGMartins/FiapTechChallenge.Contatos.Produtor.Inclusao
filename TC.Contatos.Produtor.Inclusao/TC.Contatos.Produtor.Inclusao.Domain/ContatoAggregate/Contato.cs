@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace TechChallenge.Domain.RegionalAggregate
+namespace Domain.ContatoAggregate
 {
     public class Contato : EntityBase
     {
@@ -34,18 +34,18 @@ namespace TechChallenge.Domain.RegionalAggregate
 
         public static Contato Criar(string nome, string telefone, string email, Guid regionalId)
         {
-            if (String.IsNullOrWhiteSpace(nome))
+            if (string.IsNullOrWhiteSpace(nome))
                 throw new ArgumentException("Nome do Contato inválido");
 
-            if (String.IsNullOrWhiteSpace(telefone) || !ValidarTelefone(telefone))
+            if (string.IsNullOrWhiteSpace(telefone) || !ValidarTelefone(telefone))
                 throw new ArgumentException("Telefone inválido");
 
-            if (String.IsNullOrWhiteSpace(email) || !ValidarEmail(email) || email.Length > 150)
+            if (string.IsNullOrWhiteSpace(email) || !ValidarEmail(email) || email.Length > 150)
                 throw new ArgumentException("E-mail inválido");
 
 
             return new Contato(Guid.NewGuid(), nome, telefone, email, regionalId);
-        }       
+        }
 
         public Contato Alterar(string nome, string telefone, string email, Guid regionalId)
         {

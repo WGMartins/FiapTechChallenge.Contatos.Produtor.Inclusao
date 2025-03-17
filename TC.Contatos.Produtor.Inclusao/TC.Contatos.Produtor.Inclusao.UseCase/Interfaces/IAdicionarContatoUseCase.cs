@@ -1,6 +1,6 @@
-﻿using TechChallenge.UseCase.ContatoUseCase.Adicionar;
+﻿using UseCase.ContatoUseCase.Adicionar;
 
-namespace TechChallenge.UseCase.Interfaces
+namespace UseCase.Interfaces
 {
     public interface IAdicionarContatoUseCase
     {

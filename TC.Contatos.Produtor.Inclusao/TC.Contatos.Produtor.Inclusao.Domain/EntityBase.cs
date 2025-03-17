@@ -1,4 +1,4 @@
-﻿namespace TechChallenge.Domain
+﻿namespace Domain
 {
     public class EntityBase
     {
