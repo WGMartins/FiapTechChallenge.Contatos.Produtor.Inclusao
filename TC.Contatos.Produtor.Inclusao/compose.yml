@@ -112,7 +112,6 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yaml'
     volumes:
       - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
-      - ./data:/prometheus      
     restart: unless-stopped
     networks:
       - mynw

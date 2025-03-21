@@ -4,5 +4,13 @@ scrape_configs:
   - job_name: 'prometheus'
     scrape_interval: 5s
     static_configs:
-      - targets: ['host.docker.internal:5075']
+      - targets: ['host.docker.internal:5079']
+        labels:
+          instance: "Criar Contato"
+      - targets: ['host.docker.internal:5080']
+        labels:
+          instance: "Atualizar Contato"
+      - targets: ['host.docker.internal:5081']
+        labels:
+          instance: "Remover Contato"
     metrics_path: '/metrics'
