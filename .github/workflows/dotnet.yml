@@ -30,7 +30,7 @@ jobs:
       run: dotnet build --no-restore ./TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.Api/Api.csproj
       
     - name: Unit Test
-      run: dotnet test --configuration Release --verbosity normal --logger trx --collect:"XPlat Code Coverage" ./TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.Api/UnitTest.csproj
+      run: dotnet test --configuration Release --verbosity normal --logger trx --collect:"XPlat Code Coverage" ./TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.UnitTest/UnitTest.csproj
       
     - name: Publish Test Report
       uses: dorny/test-reporter@v1.9.1
