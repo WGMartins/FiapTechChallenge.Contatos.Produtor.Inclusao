@@ -9,6 +9,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  IMAGE_NAME: contatos-produtor-inclusao
+  IMAGE_TAG: latest
+
 jobs:
   build:
 
@@ -52,3 +56,35 @@ jobs:
       if: always()
       with:
         trx_files: "${{ github.workspace }}/**/*.trx"
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Build and Push image to ACR
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_NAME }}.azurecr.io
+        username: ${{ secrets.ACR_NAME }}
+        password: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - run: |
+        docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
+        docker push ${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
+
+    - name: Set AKS context
+      uses: azure/aks-set-context@v3
+      with:
+        resource-group: ${{ secrets.RESOURCE_GROUP }}
+        cluster-name: ${{ secrets.CLUSTER_NAME }}
+
+    - name: Deploy to AKS
+      run: |
+        kubectl create deployment ${{ env.IMAGE_NAME }} \
+          --image=${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} \
+          --dry-run=client -o yaml | kubectl apply -f -
+        
+        kubectl expose deployment ${{ env.IMAGE_NAME }} \
+          --type=LoadBalancer --port=80 \
+          --dry-run=client -o yaml | kubectl apply -f -
