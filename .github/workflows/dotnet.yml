@@ -80,7 +80,7 @@ jobs:
     
     # Create namespace if doesn't exist
     - run: |
-        kubectl create namespace ${{ env.NAMESPACE }} -o json | kubectl apply -f -
+        kubectl create namespace ${{ env.NAMESPACE }} --dry-run=client -o json | kubectl apply -f -
     
     # Create imagepullsecret for Azure Container registry (ACR)
     - uses: azure/k8s-create-secret@v1
