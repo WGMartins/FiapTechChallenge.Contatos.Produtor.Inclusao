@@ -68,8 +68,8 @@ jobs:
     
     # Container build and push to a Azure Container registry (ACR)
     - run: |
-        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }} -f ./TC.Contatos.Produtor.Inclusao/Dockerfile
-        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/contatos.produtor.inclusao.api:latest -f ./TC.Contatos.Produtor.Inclusao/Dockerfile
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/contatos.produtor.inclusao.api:latest
     
     # Set the target Azure Kubernetes Service (AKS) cluster. 
     - uses: azure/aks-set-context@v1
@@ -95,7 +95,7 @@ jobs:
     - uses: azure/k8s-deploy@v1
       with:
         images: |
-          ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+          ${{ env.REGISTRY_NAME }}.azurecr.io/contatos.produtor.inclusao.api:latest
         imagepullsecrets: |
           ${{ env.REGISTRY_NAME }}-registry-connection
         namespace: ${{ env.NAMESPACE }}

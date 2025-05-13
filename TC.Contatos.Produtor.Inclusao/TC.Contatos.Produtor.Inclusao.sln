@@ -22,6 +22,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{DD191B06-811
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9284AA56-FB21-46C8-9221-8ED049E8BE27}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{20668B0F-539E-41A3-9CED-2124742E6881}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yml = compose.yml
+		api-deployment.yaml = api-deployment.yaml
+		Dockerfile = Dockerfile
+		prometheus.yaml = prometheus.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
