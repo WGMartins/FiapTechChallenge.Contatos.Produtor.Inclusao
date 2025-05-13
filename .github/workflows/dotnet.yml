@@ -94,6 +94,8 @@ jobs:
     # Deploy app to AKS
     - uses: azure/k8s-deploy@v1
       with:
+        manifests: |
+          TC.Contatos.Produtor.Inclusao/api-deployment.yml
         images: |
           ${{ env.REGISTRY_NAME }}.azurecr.io/contatos.produtor.inclusao.api:latest
         imagepullsecrets: |
