@@ -7,7 +7,7 @@ COPY . ./
 
 WORKDIR /App/TC.Contatos.Produtor.Inclusao.Api
 
-RUN dir
+RUN ls
 
 # Restore as distinct layers
 RUN dotnet restore
