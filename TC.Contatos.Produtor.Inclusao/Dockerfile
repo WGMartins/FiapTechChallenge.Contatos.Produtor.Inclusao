@@ -7,6 +7,8 @@ COPY . ./
 
 WORKDIR /App/TC.Contatos.Produtor.Inclusao.Api
 
+RUN dir
+
 # Restore as distinct layers
 RUN dotnet restore
 # Build and publish a release
