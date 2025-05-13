@@ -5,9 +5,7 @@ WORKDIR /App
 # Copy everything
 COPY . ./
 
-WORKDIR /App/TC.Contatos.Produtor.Inclusao.Api
-
-RUN ls -la /App/TC.Contatos.Produtor.Inclusao
+WORKDIR /App/TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.Api
 
 # Restore as distinct layers
 RUN dotnet restore
