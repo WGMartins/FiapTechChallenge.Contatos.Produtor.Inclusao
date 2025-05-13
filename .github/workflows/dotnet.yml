@@ -10,8 +10,10 @@ on:
     branches: [ "main" ]
 
 env:
-  IMAGE_NAME: contatos-produtor-inclusao
-  IMAGE_TAG: latest
+  REGISTRY_NAME: fiaptechchallenge
+  CLUSTER_NAME: FiapTechChallengeAKS
+  CLUSTER_RESOURCE_GROUP: FiapTechChallenge
+  NAMESPACE: default
 
 jobs:
   build:
@@ -57,36 +59,46 @@ jobs:
       with:
         trx_files: "${{ github.workspace }}/**/*.trx"
 
-    - name: Login to Azure
-      uses: azure/login@v1
+    # Connect to Azure Container registry (ACR)
+    - uses: azure/docker-login@v1
       with:
-        client-id: ${{ secrets.CLIENT_ID }}
-        subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
-        tenant-id: ${{ secrets.TENANT_ID }}
-
-    - name: Build and Push image to ACR
-      uses: azure/docker-login@v1
-      with:
-        login-server: ${{ secrets.ACR_NAME }}.azurecr.io
-        username: ${{ secrets.ACR_NAME }}
-        password: ${{ secrets.AZURE_CREDENTIALS }}
-
+        login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
+        username: ${{ secrets.REGISTRY_USERNAME }} 
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+    
+    # Container build and push to a Azure Container registry (ACR)
     - run: |
-        docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} .
-        docker push ${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-
-    - name: Set AKS context
-      uses: azure/aks-set-context@v3
+        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+        docker push ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+    
+    # Set the target Azure Kubernetes Service (AKS) cluster. 
+    - uses: azure/aks-set-context@v1
       with:
-        resource-group: ${{ secrets.RESOURCE_GROUP }}
-        cluster-name: ${{ secrets.CLUSTER_NAME }}
-
-    - name: Deploy to AKS
-      run: |
-        kubectl create deployment ${{ env.IMAGE_NAME }} \
-          --image=${{ secrets.ACR_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }} \
-          --dry-run=client -o yaml | kubectl apply -f -
-        
-        kubectl expose deployment ${{ env.IMAGE_NAME }} \
-          --type=LoadBalancer --port=80 \
-          --dry-run=client -o yaml | kubectl apply -f -
+        creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        cluster-name: ${{ env.CLUSTER_NAME }}
+        resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+    
+    # Create namespace if doesn't exist
+    - run: |
+        kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
+    
+    # Create imagepullsecret for Azure Container registry (ACR)
+    - uses: azure/k8s-create-secret@v1
+      with:
+        container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
+        container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+        container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+        secret-name: ${{ env.REGISTRY_NAME }}-registry-connection
+        namespace: ${{ env.NAMESPACE }}
+    
+    # Deploy app to AKS
+    - uses: azure/k8s-deploy@v1
+      with:
+        manifests: |
+          manifests/deployment.yml
+          manifests/service.yml
+        images: |
+          ${{ env.REGISTRY_NAME }}.azurecr.io/myimage:${{ github.sha }}
+        imagepullsecrets: |
+          ${{ env.REGISTRY_NAME }}-registry-connection
+        namespace: ${{ env.NAMESPACE }}
