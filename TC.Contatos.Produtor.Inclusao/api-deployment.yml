@@ -15,6 +15,9 @@ spec:
       containers:
       - name: api
         image: fiaptechchallenge.azurecr.io/contatos.produtor.inclusao.api
+        envFrom:
+          - configMapRef:
+             name: configmap-api
         ports:
         - containerPort: 8080
 ---

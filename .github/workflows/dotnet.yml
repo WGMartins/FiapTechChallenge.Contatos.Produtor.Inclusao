@@ -77,10 +77,17 @@ jobs:
         creds: '${{ secrets.AZURE_CREDENTIALS }}'
         cluster-name: ${{ env.CLUSTER_NAME }}
         resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
-    
+
     # Create namespace if doesn't exist
     - run: |
-        kubectl create namespace ${{ env.NAMESPACE }} --dry-run=client -o json | kubectl apply -f -
+        kubectl create namespace ${{ env.NAMESPACE }} --dry-run=client -o json
+        
+
+    - name: Criar ou atualizar ConfigMap
+      run: |
+          kubectl create configmap configmap-api \
+            --from-literal=RabbitMQ__HostName=${{ secrets.RABBITMQ__HOSTNAME }} \
+            --dry-run=client -o yaml | kubectl apply -f -
     
     # Create imagepullsecret for Azure Container registry (ACR)
     - uses: azure/k8s-create-secret@v1
