@@ -14,12 +14,9 @@ spec:
     spec:
       containers:
       - name: api
-        image: fiaptechchallenge.azurecr.io/contatos.produtor.inclusao.api:latest
+        image: fiaptechchallenge.azurecr.io/contatos.produtor.inclusao.api
         ports:
         - containerPort: 8080
-        env:
-        - name: ASPNETCORE_ENVIRONMENT
-          value: Development
 ---
 apiVersion: v1
 kind: Service
