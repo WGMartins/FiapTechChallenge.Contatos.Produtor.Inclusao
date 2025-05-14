@@ -33,7 +33,7 @@ jobs:
       run: dotnet restore ./TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.Api/Api.csproj
       
     - name: Build
-      run: dotnet build --no-restore ./TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.Api/Api.csproj
+      run: dotnet build --no-restore ./TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.Api/Api.csproj --platform linux/arm64
       
     - name: Unit Test
       run: dotnet test --configuration Release --verbosity normal --logger trx --collect:"XPlat Code Coverage" ./TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.UnitTest/UnitTest.csproj
