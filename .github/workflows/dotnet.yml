@@ -68,7 +68,7 @@ jobs:
     
     # Container build and push to a Azure Container registry (ACR)
     - run: |
-        docker build .  --platform linux/arm64 -t ${{ env.REGISTRY_NAME }}.azurecr.io/contatos.produtor.inclusao.api:latest -f ./TC.Contatos.Produtor.Inclusao/Dockerfile 
+        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/contatos.produtor.inclusao.api:latest -f ./TC.Contatos.Produtor.Inclusao/Dockerfile 
         docker push ${{ env.REGISTRY_NAME }}.azurecr.io/contatos.produtor.inclusao.api:latest
     
     # Set the target Azure Kubernetes Service (AKS) cluster. 

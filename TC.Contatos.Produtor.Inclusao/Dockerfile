@@ -5,8 +5,8 @@ WORKDIR /app
 COPY ./ ./
 WORKDIR /app/TC.Contatos.Produtor.Inclusao
 
-RUN dotnet restore --runtime linux-arm64
-RUN dotnet publish -c Release -r linux-arm64 -o out
+RUN dotnet restore
+RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
