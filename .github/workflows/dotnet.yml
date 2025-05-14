@@ -33,7 +33,7 @@ jobs:
       run: dotnet restore ./TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.Api/Api.csproj
       
     - name: Build
-      run: dotnet build --no-restore ./TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.Api/Api.csproj --platform linux/arm64
+      run: dotnet build --no-restore ./TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.Api/Api.csproj
       
     - name: Unit Test
       run: dotnet test --configuration Release --verbosity normal --logger trx --collect:"XPlat Code Coverage" ./TC.Contatos.Produtor.Inclusao/TC.Contatos.Produtor.Inclusao.UnitTest/UnitTest.csproj
@@ -68,7 +68,7 @@ jobs:
     
     # Container build and push to a Azure Container registry (ACR)
     - run: |
-        docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/contatos.produtor.inclusao.api:latest -f ./TC.Contatos.Produtor.Inclusao/Dockerfile
+        docker build .  --platform linux/arm64 -t ${{ env.REGISTRY_NAME }}.azurecr.io/contatos.produtor.inclusao.api:latest -f ./TC.Contatos.Produtor.Inclusao/Dockerfile 
         docker push ${{ env.REGISTRY_NAME }}.azurecr.io/contatos.produtor.inclusao.api:latest
     
     # Set the target Azure Kubernetes Service (AKS) cluster. 
