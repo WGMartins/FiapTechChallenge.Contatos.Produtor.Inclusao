@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: produtor-inclusao-api-deployment
+  name: produtor-inclusao-api
   labels:
     app: produtor-api
 spec:
@@ -26,7 +26,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: produtor-inclusao-api-service
+  name: produtor-inclusao-api
 spec:
   type: ClusterIP
   ports:
