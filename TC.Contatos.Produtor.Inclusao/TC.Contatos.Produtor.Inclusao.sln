@@ -14,20 +14,23 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest", "TC.Contatos.Produtor.Inclusao.UnitTest\UnitTest.csproj", "{88605868-F71A-489D-9AD7-8728A2BCBFFC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{DD191B06-8110-4875-9371-F4854BD68B2F}"
-	ProjectSection(SolutionItems) = preProject
-		compose.yml = compose.yml
-		Dockerfile = Dockerfile
-		prometheus.yaml = prometheus.yaml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9284AA56-FB21-46C8-9221-8ED049E8BE27}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{20668B0F-539E-41A3-9CED-2124742E6881}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infra", "Infra", "{F33F6657-EFC1-432B-A3D1-1AFD22B6C3FD}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{CC517658-AFC6-4D2F-BB52-20CB6A74C1D5}"
 	ProjectSection(SolutionItems) = preProject
 		compose.yml = compose.yml
-		api-deployment.yaml = api-deployment.yaml
-		Dockerfile = Dockerfile
 		prometheus.yaml = prometheus.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{A82F12C5-E60C-4F49-A759-9F4DA0CDA574}"
+	ProjectSection(SolutionItems) = preProject
+		api-deployment.yml = api-deployment.yml
 	EndProjectSection
 EndProject
 Global
@@ -66,6 +69,8 @@ Global
 		{E4F44FB6-4790-443B-AD12-1F999FB694F1} = {DD191B06-8110-4875-9371-F4854BD68B2F}
 		{88C7CC37-695B-4A4F-B502-35842ABAA177} = {DD191B06-8110-4875-9371-F4854BD68B2F}
 		{88605868-F71A-489D-9AD7-8728A2BCBFFC} = {9284AA56-FB21-46C8-9221-8ED049E8BE27}
+		{CC517658-AFC6-4D2F-BB52-20CB6A74C1D5} = {F33F6657-EFC1-432B-A3D1-1AFD22B6C3FD}
+		{A82F12C5-E60C-4F49-A759-9F4DA0CDA574} = {F33F6657-EFC1-432B-A3D1-1AFD22B6C3FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {970403D0-EEDC-46A8-B047-1657C0F54435}
