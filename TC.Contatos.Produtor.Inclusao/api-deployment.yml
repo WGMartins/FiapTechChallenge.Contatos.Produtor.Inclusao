@@ -1,7 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: produtor-api
+  name: produtor-inclusao-api-deployment
+  labels:
+    app: produtor-api
 spec:
   replicas: 1
   selector:
@@ -13,7 +15,7 @@ spec:
         app: produtor-api
     spec:
       containers:
-      - name: produtor-api
+      - name: produtor-inclusao-api
         image: fiaptechchallenge.azurecr.io/contatos.produtor.inclusao.api
         envFrom:
           - configMapRef:
@@ -24,7 +26,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: produtor-api
+  name: produtor-inclusao-api-service
 spec:
   type: ClusterIP
   ports:
