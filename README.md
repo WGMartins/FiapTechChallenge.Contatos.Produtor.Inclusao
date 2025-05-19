@@ -1,4 +1,4 @@
-[![.NET](https://github.com/WGMartins/FiapTechChallenge.Contatos.Produtor.Inclusao/actions/workflows/dotnet.yml/badge.svg?branch=main)]([https://github.com/WGMartins/fiap-tech-challenge-net/actions/workflows/dotnet.yml](https://github.com/WGMartins/FiapTechChallenge.Contatos.Produtor.Inclusao/actions/workflows/dotnet.yml))
+[![.NET](https://github.com/WGMartins/FiapTechChallenge.Contatos.Produtor.Inclusao/actions/workflows/dotnet.yml/badge.svg?branch=main)](https://github.com/WGMartins/FiapTechChallenge.Contatos.Produtor.Inclusao/actions/workflows/dotnet.yml)
 
 # FIAP Tech Challenge
 
